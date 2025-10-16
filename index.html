@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦀 CRAB RAVE CAR - 24 Hours of Lemons 🦀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7, #DDA0DD);
+            background-size: 400% 400%;
+            animation: rainbow 4s ease infinite;
+            overflow-x: hidden;
+            min-height: 100vh;
+            color: white;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.3;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: clamp(2rem, 8vw, 6rem);
+            font-weight: bold;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.7);
+            margin: 20px 0;
+            animation: bounce 2s ease-in-out infinite;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: bounce 2s ease-in-out infinite, rainbow-text 3s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        @keyframes rainbow-text {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 4vw, 2rem);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+
+        .dancing-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            animation: dance 4s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .dancing-image:nth-child(odd) {
+            animation-delay: -2s;
+        }
+
+        .dancing-image:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .dancing-image.exploding {
+            animation: explode 0.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.3) rotate(10deg); opacity: 0.7; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        .explosion-crab {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: explode-crab 2s ease-out forwards;
+        }
+
+        @keyframes explode-crab {
+            0% { 
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            20% { 
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(0.5) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .dancing-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(-1deg); }
+            75% { transform: translateY(-25px) rotate(1deg); }
+        }
+
+        .quote {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin: 40px 0;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.5); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.7), 0 0 30px rgba(255,255,255,0.8); }
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF4757);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .more-crabs-btn {
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+        }
+
+        .floating-crab {
+            position: fixed;
+            font-size: 40px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .float-up {
+            animation: float-up 6s ease-in-out infinite;
+        }
+
+        .float-down {
+            animation: float-down 6s ease-in-out infinite;
+        }
+
+        .float-left {
+            animation: float-left 6s ease-in-out infinite;
+        }
+
+        .float-right {
+            animation: float-right 6s ease-in-out infinite;
+        }
+
+        .float-diagonal-1 {
+            animation: float-diagonal-1 6s ease-in-out infinite;
+        }
+
+        .float-diagonal-2 {
+            animation: float-diagonal-2 6s ease-in-out infinite;
+        }
+
+        .float-diagonal-3 {
+            animation: float-diagonal-3 6s ease-in-out infinite;
+        }
+
+        .float-diagonal-4 {
+            animation: float-diagonal-4 6s ease-in-out infinite;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float-down {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(-360deg); opacity: 0; }
+        }
+
+        @keyframes float-left {
+            0% { transform: translateX(100vw) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float-right {
+            0% { transform: translateX(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100vw) rotate(-360deg); opacity: 0; }
+        }
+
+        @keyframes float-diagonal-1 {
+            0% { transform: translate(100vw, 100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-100px, -100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float-diagonal-2 {
+            0% { transform: translate(-100px, 100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100vw, -100px) rotate(-360deg); opacity: 0; }
+        }
+
+        @keyframes float-diagonal-3 {
+            0% { transform: translate(100vw, -100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-100px, 100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float-diagonal-4 {
+            0% { transform: translate(-100px, -100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100vw, 100vh) rotate(-360deg); opacity: 0; }
+        }
+
+        .lemon-reference {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .lemon-reference h3 {
+            color: #FFEAA7;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+                left: 10px;
+                right: 10px;
+            }
+            
+            .control-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .image-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="bg-video">
+        <source src="crab-rave-video.mp4" type="video/mp4">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <audio id="crab-rave-audio" loop autoplay>
+        <source src="crab-rave-audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="controls">
+        <button id="music-toggle" class="control-btn" onclick="toggleMusic()">
+            🎵 Play Crab Rave Music
+        </button>
+        <button class="control-btn more-crabs-btn" onclick="addMoreCrabs()">
+            🦀 MORE CRABS! 🦀
+        </button>
+    </div>
+
+    <div class="container">
+        <h1 class="title">🦀 CRAB RAVE CAR 🦀</h1>
+        <h2 class="subtitle">24 Hours of Lemons Super Soft Racing Team</h2>
+        
+        <div class="lemon-reference">
+            <h3>🍋 The Lemon That Became a Crab 🍋</h3>
+            <p>From questionable automotive choices to crustacean perfection! This beauty has survived multiple 24 hours of Lemons endurance races while looking absolutely shell-sational and crabsolutely clawsome!</p>
+        </div>
+
+        <div class="image-container">
+            <div class="dancing-image" onclick="explodeIntoCrabs(this)">
+                <img src="crab-car-2.jpg" alt="Crab Rave Car - Side View" onerror="this.src='https://via.placeholder.com/300x250/4ECDC4/FFFFFF?text=SIDE+VIEW+CRAB+CAR'">
+            </div>
+            <div class="dancing-image" onclick="explodeIntoCrabs(this)">
+                <img src="crab-car-3.jpg" alt="Crab Rave Car - Rear with CLAWS UP" onerror="this.src='https://via.placeholder.com/300x250/45B7D1/FFFFFF?text=CLAWS+UP+REAR'">
+            </div>
+            <div class="dancing-image" onclick="explodeIntoCrabs(this)">
+                <img src="crab-car-4.jpg" alt="Crab Rave Car - Detail Shot" onerror="this.src='https://via.placeholder.com/300x250/96CEB4/FFFFFF?text=CRAB+DETAILS'">
+            </div>
+            <div class="dancing-image" onclick="explodeIntoCrabs(this)">
+                <img src="crab-car-5.jpg" alt="Crab Rave Car - Track Action" onerror="this.src='https://via.placeholder.com/300x250/FFEAA7/000000?text=TRACK+ACTION'">
+            </div>
+            <div class="dancing-image" onclick="explodeIntoCrabs(this)">
+                <img src="crab-car-6.jpg" alt="Crab Rave Car - Another Angle" onerror="this.src='https://via.placeholder.com/300x250/DDA0DD/FFFFFF?text=MORE+CRAB+ANGLES'">
+            </div>
+        </div>
+
+        <div class="quote">
+            🦀 "Are you feeling it now, Mr. Sebastian?" 🦀
+        </div>
+
+        <div class="quote">
+            🦀 "And now, a Segway (its car themed, okay) to our sponsor... <a href="https://youtu.be/dQw4w9WgXcQ?si=uT-FdzFDwInpXQDY">Apollo Automation</a>" 🦀
+        </div>
+
+        <div class="quote">
+            🦀 <a href="canlinusreachthepedals.com">canlinusreachthepedals.com</a> 🦀
+        </div>
+
+        <div class="lemon-reference">
+            <h3>🏁 Racing Stats 🏁</h3>
+            <p><strong>From being Kentucky Bribed Chicken</strong> to The Kim Harmon Scrotium 500, this crab has conquered the asphalt seas so far...</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-start the music when page loads
+        window.addEventListener('load', function() {
+            startCrabRave();
+        });
+
+        function startCrabRave() {
+            const audio = document.getElementById('crab-rave-audio');
+            const button = document.getElementById('music-toggle');
+            
+            // Try to play the audio
+            audio.play().then(() => {
+                button.innerHTML = '🎵 Pause Music';
+                button.style.background = 'linear-gradient(45deg, #FF4757, #FF3742)';
+                console.log('🦀 CRAB RAVE MUSIC STARTED! 🦀');
+            }).catch(e => {
+                console.log('Autoplay prevented, user interaction required:', e);
+                // Keep the play button available for user interaction
+            });
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById('crab-rave-audio');
+            const button = document.getElementById('music-toggle');
+            
+            if (audio.paused) {
+                audio.play().then(() => {
+                    button.innerHTML = '🎵 Pause Music';
+                    button.style.background = 'linear-gradient(45deg, #FF4757, #FF3742)';
+                }).catch(e => {
+                    console.log('Audio play failed:', e);
+                    alert('Audio play failed. Please interact with the page first!');
+                });
+            } else {
+                audio.pause();
+                button.innerHTML = '🎵 Play Crab Rave Music';
+                button.style.background = 'linear-gradient(45deg, #FF6B6B, #FF4757)';
+            }
+        }
+        
+        function explodeIntoCrabs(imageElement) {
+            // START THE CRAB RAVE MUSIC!
+            const audio = document.getElementById('crab-rave-audio');
+            const button = document.getElementById('music-toggle');
+            
+            audio.play().then(() => {
+                button.innerHTML = '🎵 Pause Music';
+                button.style.background = 'linear-gradient(45deg, #FF4757, #FF3742)';
+                console.log('🦀 CRAB RAVE MUSIC ACTIVATED BY EXPLOSION! 🦀');
+            }).catch(e => {
+                console.log('Audio play failed:', e);
+            });
+            
+            // Add exploding animation to the image
+            imageElement.classList.add('exploding');
+            
+            // Get the position of the clicked image
+            const rect = imageElement.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Create explosion of crabs
+            const crabCount = 25;
+            const crabs = ['🦀', '🦀', '🦀', '🦀', '🦀'];
+            
+            for (let i = 0; i < crabCount; i++) {
+                const crab = document.createElement('div');
+                crab.className = 'explosion-crab';
+                crab.textContent = crabs[Math.floor(Math.random() * crabs.length)];
+                
+                // Random direction and distance
+                const angle = (Math.PI * 2 * i) / crabCount + (Math.random() - 0.5) * 0.8;
+                const distance = Math.random() * 300 + 150;
+                const finalX = centerX + Math.cos(angle) * distance;
+                const finalY = centerY + Math.sin(angle) * distance;
+                
+                // Set starting position
+                crab.style.left = centerX + 'px';
+                crab.style.top = centerY + 'px';
+                
+                // Add to page
+                document.body.appendChild(crab);
+                
+                // Animate to final position
+                setTimeout(() => {
+                    crab.style.transform = `translate(${finalX - centerX}px, ${finalY - centerY}px) scale(1.5) rotate(720deg)`;
+                    crab.style.transition = 'all 2s ease-out';
+                }, 10);
+                
+                // Remove crab after animation
+                setTimeout(() => {
+                    if (crab.parentNode) {
+                        crab.remove();
+                    }
+                }, 2100);
+            }
+            
+            // Reset the image after explosion
+            setTimeout(() => {
+                imageElement.classList.remove('exploding');
+            }, 500);
+            
+            // Also trigger more floating crabs for extra chaos
+            setTimeout(() => {
+                addMoreCrabs();
+            }, 200);
+        }
+
+        function addMoreCrabs() {
+            const crabs = ['🦀', '🦀', '🦀', '🦀', '🦀'];
+            const animations = ['float-up', 'float-down', 'float-left', 'float-right', 'float-diagonal-1', 'float-diagonal-2', 'float-diagonal-3', 'float-diagonal-4'];
+            const container = document.body;
+            
+            for (let i = 0; i < 15; i++) {
+                const crab = document.createElement('div');
+                crab.className = 'floating-crab';
+                crab.textContent = crabs[Math.floor(Math.random() * crabs.length)];
+                
+                // Random animation direction
+                const animation = animations[Math.floor(Math.random() * animations.length)];
+                crab.classList.add(animation);
+                
+                // Random starting position based on animation
+                if (animation === 'float-up') {
+                    crab.style.left = Math.random() * window.innerWidth + 'px';
+                    crab.style.bottom = '0px';
+                } else if (animation === 'float-down') {
+                    crab.style.left = Math.random() * window.innerWidth + 'px';
+                    crab.style.top = '0px';
+                } else if (animation === 'float-left') {
+                    crab.style.right = '0px';
+                    crab.style.top = Math.random() * window.innerHeight + 'px';
+                } else if (animation === 'float-right') {
+                    crab.style.left = '0px';
+                    crab.style.top = Math.random() * window.innerHeight + 'px';
+                } else if (animation === 'float-diagonal-1') {
+                    crab.style.right = '0px';
+                    crab.style.bottom = '0px';
+                } else if (animation === 'float-diagonal-2') {
+                    crab.style.left = '0px';
+                    crab.style.bottom = '0px';
+                } else if (animation === 'float-diagonal-3') {
+                    crab.style.right = '0px';
+                    crab.style.top = '0px';
+                } else if (animation === 'float-diagonal-4') {
+                    crab.style.left = '0px';
+                    crab.style.top = '0px';
+                }
+                
+                crab.style.animationDelay = Math.random() * 2 + 's';
+                crab.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(crab);
+                
+                setTimeout(() => {
+                    if (crab.parentNode) {
+                        crab.remove();
+                    }
+                }, 7000);
+            }
+        }
+
+        // Auto-add crabs periodically
+        setInterval(addMoreCrabs, 5000);
+
+        // Add some initial dancing crabs
+        setTimeout(addMoreCrabs, 1000);
+
+        // Click anywhere to enable audio context (for browsers that block autoplay)
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('crab-rave-audio');
+            if (audio.paused) {
+                // Don't auto-start on every click, just enable the context
+                audio.volume = 0.7; // Set a reasonable volume
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
